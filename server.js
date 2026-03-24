@@ -189,6 +189,26 @@ app.get('/api/export-csv', (req, res) => {
   res.send(header + rows);
 });
 
+// Restore endpoint - upload backed up photos
+app.post('/api/restore', upload.single('photo'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Photo required' });
+  const { username, role, title, hashtags, createdAt } = req.body;
+  const outName = req.file.filename;
+  const post = {
+    id: Date.now().toString(),
+    photo: `/processed/${outName}`,
+    username: username || 'Restored',
+    role: role || '',
+    title: title || 'Restored photo',
+    hashtags: hashtags ? JSON.parse(hashtags) : ['#Aiztech2026'],
+    createdAt: createdAt || new Date().toISOString()
+  };
+  const data = readData();
+  data.posts.push(post);
+  writeData(data);
+  res.json({ ok: true, post });
+});
+
 // SPA catch-all
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
