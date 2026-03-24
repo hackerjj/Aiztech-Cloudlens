@@ -190,6 +190,41 @@ app.get('/api/export-csv', (req, res) => {
   res.send(header + rows);
 });
 
+// Reset posts only (preserves users)
+app.post('/api/admin/reset', (req, res) => {
+  const { confirm } = req.body;
+  if (confirm !== 'RESET_ALL') return res.status(400).json({ error: 'Send confirm: RESET_ALL' });
+  const data = readData();
+  const users = data.users || [];
+  writeData({ users, posts: [] });
+  // Clean processed photos
+  const files = fs.readdirSync(PROCESSED_DIR).filter(f => /\.(jpg|jpeg|png)$/i.test(f));
+  files.forEach(f => { try { fs.unlinkSync(path.join(PROCESSED_DIR, f)); } catch {} });
+  res.json({ ok: true, deletedPosts: files.length, usersPreserved: users.length });
+});
+
+// Get users (for backup)
+app.get('/api/users', (req, res) => {
+  const data = readData();
+  res.json(data.users || []);
+});
+
+// Restore users
+app.post('/api/restore-users', (req, res) => {
+  const { users } = req.body;
+  if (!Array.isArray(users)) return res.status(400).json({ error: 'users array required' });
+  const data = readData();
+  let added = 0;
+  for (const u of users) {
+    if (!data.users.find(existing => existing.name === u.name)) {
+      data.users.push(u);
+      added++;
+    }
+  }
+  writeData(data);
+  res.json({ ok: true, added, total: data.users.length });
+});
+
 // Restore endpoint - upload backed up photos
 app.post('/api/restore', upload.single('photo'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Photo required' });
