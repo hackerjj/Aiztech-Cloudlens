@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudLens — Attendees</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;min-height:100vh}
+.header{padding:1.5rem 2rem;border-bottom:1px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:1.4rem;font-weight:700}
+.header h1 span{color:#dc2626}
+.header .count{color:#666;font-size:0.85rem}
+.search{padding:1rem 2rem;border-bottom:1px solid #1a1a1a}
+.search input{width:100%;padding:0.7rem 1rem;background:#111;border:1px solid #222;border-radius:8px;color:#fff;font-size:0.9rem;font-family:'Inter',sans-serif}
+.search input:focus{outline:none;border-color:#dc2626}
+.search input::placeholder{color:#555}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;padding:1px}
+.card{display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;background:#0a0a0a;transition:background 0.2s}
+.card:hover{background:#111}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1><span>CLOUD</span>LENS — Attendees</h1>
+  <div class="count" id="count">Loading...</div>
+</div>
+<div class="search">
+  <input type="text" id="filter" placeholder="Search by name, alias, or role...">
+</div>
+<div class="grid" id="grid"></div>
+<script>
+const COLORS=['#dc2626','#ea580c','#d97706','#65a30d','#059669','#0891b2','#2563eb','#7c3aed','#c026d3'];
+function getColor(s){let h=0;for(let i=0;i<s.length;i++)h=s.charCodeAt(i)+((h<<5)-h);return COLORS[Math.abs(h)%COLORS.length]}
+function initials(n){return n.split(' ').filter(w=>w.length>0).slice(0,2).map(w=>w[0].toUpperCase()).join('')}
+</script>
+</body>
+</html>
+<script>
+async function load(){
+  const res=await fetch('/api/users');
+  const users=await res.json();
+  document.getElementById('count').textContent=users.length+' attendees';
+  render(users);
+  document.getElementById('filter').addEventListener('input',e=>{
+    const q=e.target.value.toLowerCase();
+    const filtered=users.filter(u=>(u.name||'').toLowerCase().includes(q)||(u.role||'').toLowerCase().includes(q)||(u.expectations||'').toLowerCase().includes(q));
+    render(filtered);
+  });
+}
+function render(users){
+  const grid=document.getElementById('grid');
+  grid.innerHTML=users.map(u=>{
+    const name=u.name||'?';
+    const ini=initials(name);
+    const bg=getColor(name);
+    const role=u.role||'';
+    return '<div class="card">'+
+      '<div style="width:44px;height:44px;border-radius:50%;background:'+bg+';display:flex;align-items:center;justify-content:center;font-weight:600;font-size:0.85rem;flex-shrink:0;color:#fff">'+ini+'</div>'+
+      '<div style="min-width:0"><div style="font-weight:500;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+name+'</div>'+
+      '<div style="color:#666;font-size:0.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+role+'</div></div></div>';
+  }).join('');
+}
+load();
+</script>
