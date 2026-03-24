@@ -152,7 +152,7 @@ select.input option{background:#111;color:#fff}
   </div>
   <div id="wallCarousel" style="position:fixed;inset:0;top:70px;bottom:40px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px"></div>
   <div style="position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0.8rem 2rem;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);display:flex;justify-content:space-between;font-size:0.65rem;font-family:'JetBrains Mono',monospace;color:#444">
-    <span>CLOUDLENS v3.0 / Built by Kiro using APEX 2026</span>
+    <span>CLOUDLENS v9.2 / <a href="#" onclick="document.getElementById('changelogModal').classList.remove('hidden');return false" style="color:#666;text-decoration:underline">Changelog</a> / Built by Kiro using APEX 2026</span>
     <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 2s infinite"></span> LIVE</span>
   </div>
 </div>
@@ -414,5 +414,97 @@ function nextWallSlide() {
 }
 
 </script>
+<!-- Changelog Modal -->
+<div id="changelogModal" class="hidden" style="position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:1rem" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div style="background:#111;border:1px solid #222;border-radius:12px;padding:1.5rem;max-width:520px;width:100%;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h2 class="grad-text" style="font-size:1.1rem;font-weight:700">Changelog</h2>
+      <button onclick="document.getElementById('changelogModal').classList.add('hidden')" style="background:none;border:none;color:#666;font-size:1.2rem;cursor:pointer">x</button>
+    </div>
+    <div style="font-size:0.75rem;color:#888;font-family:'JetBrains Mono',monospace;line-height:1.9">
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem">v9.2 - March 24, 2026</p>
+      <p>- Auto aspect ratio detection (9:16 / 16:9)</p>
+      <p>- Photos keep original dimensions, no forced crop</p>
+      <p>- Aiztech logo watermark on all photos</p>
+      <p>- Aiztech logo in wall header</p>
+      <p>- Wall grid shows photos with object-fit:contain</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v9.1 - March 24, 2026</p>
+      <p>- 916 template overlay attempt (reverted)</p>
+      <p>- Image processing with node-canvas</p>
+      <p>- 16-bit to 8-bit PNG conversion for templates</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v9.0 - March 24, 2026</p>
+      <p>- Deployed to Render.com (HTTPS)</p>
+      <p>- Code pushed to GitHub (hackerjj/Aiztech-Cloudlens)</p>
+      <p>- Git history rewritten to fix contributor attribution</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v8.0 - March 24, 2026</p>
+      <p>- Full local server rewrite</p>
+      <p>- Multi-language support (EN/ES/PT)</p>
+      <p>- Event registration with Amazon alias + ProServe roles</p>
+      <p>- Camera capture + file upload</p>
+      <p>- Aspect ratio selector (9:16 / 16:9)</p>
+      <p>- Server-side image overlay with event logos</p>
+      <p>- Auto-generated titles and hashtags</p>
+      <p>- Wall view with 4-photo rotating grid + QR code</p>
+      <p>- Photo gallery with author info</p>
+      <p>- CSV export for registrations</p>
+      <p>- Footer: Built by Kiro using APEX 2026</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v7.0 - March 24, 2026</p>
+      <p>- Attempted localtunnel, cloudflared, serveo, bore, telebit tunnels</p>
+      <p>- localtunnel worked but requires tunnel password</p>
+      <p>- Identified Mac MDM blocking incoming connections</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v6.0 - March 23, 2026</p>
+      <p>- Pivoted to local-only architecture (no Isengard)</p>
+      <p>- Slack bot integration designed (pending admin approval)</p>
+      <p>- Epoxy/Talos security alert resolved</p>
+      <p>- EB environment terminated, CloudFront deleted, S3 cleaned</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v5.0 - March 23, 2026</p>
+      <p>- Amazon Rekognition integration (DetectLabels + Moderation)</p>
+      <p>- Auto-captioning from detected labels</p>
+      <p>- Smart hashtag generation</p>
+      <p>- Content moderation (auto-reject inappropriate)</p>
+      <p>- IAM role updated with AmazonRekognitionReadOnlyAccess</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v4.0 - March 23, 2026</p>
+      <p>- Mission Impossible theme (dark/red, scanlines, HUD)</p>
+      <p>- Masonry photo wall layout</p>
+      <p>- No emojis, professional design</p>
+      <p>- Deployed to EB as v4-mi-theme</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v3.0 - March 23, 2026</p>
+      <p>- CloudFront distribution for HTTPS (later removed)</p>
+      <p>- ARCHITECTURE.md and TECH-STACK.md documentation</p>
+      <p>- Route 53 domain registration attempted (account not authorized)</p>
+      <p>- AEA/Midway investigation (service not registered in Sentry)</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v2.0 - March 23, 2026</p>
+      <p>- React SPA with CloudLens AWS theme (orange/squid-ink)</p>
+      <p>- Converted to single-file HTML (vite-plugin-singlefile)</p>
+      <p>- SPA catch-all route added to server.js</p>
+      <p>- Deployed to EB as v3-redesign</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v1.0 - March 23, 2026</p>
+      <p>- Initial CloudLens multi-page app (HTML/CSS/JS)</p>
+      <p>- Express.js backend with multer uploads</p>
+      <p>- Multi-file upload with client-side resize + SHA-256 dedup</p>
+      <p>- Geofencing with Haversine formula</p>
+      <p>- Like system (toggle per user)</p>
+      <p>- Slideshow mode</p>
+      <p>- Admin export</p>
+      <p>- Terms & conditions with scroll-to-accept</p>
+      <p>- Elastic Beanstalk deployment (Node.js 20, t3.micro)</p>
+      <p>- Event code authentication (2026AIR)</p>
+
+      <p style="color:#555;margin-top:1rem;font-size:0.65rem">Built by Kiro using APEX 2026</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
