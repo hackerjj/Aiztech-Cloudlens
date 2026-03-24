@@ -6,8 +6,9 @@ const { createCanvas, loadImage } = require('canvas');
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE = path.join(__dirname, 'local-data.json');
-const PROCESSED_DIR = path.join(__dirname, 'processed');
+const PERSISTENT = process.env.RENDER ? '/opt/render/project/src/persistent' : path.join(__dirname, '.');
+const DATA_FILE = path.join(PERSISTENT, 'local-data.json');
+const PROCESSED_DIR = path.join(PERSISTENT, 'processed');
 const LOGOS_DIR = path.join(__dirname, '..', 'Imagenes');
 
 if (!fs.existsSync(PROCESSED_DIR)) fs.mkdirSync(PROCESSED_DIR, { recursive: true });
