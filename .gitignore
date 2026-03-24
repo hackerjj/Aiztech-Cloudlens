@@ -1,0 +1,7 @@
+node_modules
+processed
+local-data.json
+.DS_Store
+uploads
+data.json
+*.zip
