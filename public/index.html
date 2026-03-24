@@ -153,7 +153,7 @@ select.input option{background:#111;color:#fff}
   </div>
   <div id="wallCarousel" style="position:fixed;inset:0;top:70px;bottom:40px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px"></div>
   <div style="position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0.8rem 2rem;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);display:flex;justify-content:space-between;font-size:0.65rem;font-family:'JetBrains Mono',monospace;color:#444">
-    <span>CLOUDLENS v9.2 / <a href="#" onclick="document.getElementById('changelogModal').classList.remove('hidden');return false" style="color:#666;text-decoration:underline">Changelog</a> / Built by Kiro using APEX 2026</span>
+    <span>CLOUDLENS v10.0 / <a href="#" onclick="document.getElementById('changelogModal').classList.remove('hidden');return false" style="color:#666;text-decoration:underline">Changelog</a> / Built by Kiro using APEX 2026</span>
     <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 2s infinite"></span> LIVE</span>
   </div>
 </div>
@@ -424,7 +424,17 @@ function nextWallSlide() {
     </div>
     <div style="font-size:0.75rem;color:#888;font-family:'JetBrains Mono',monospace;line-height:1.9">
 
-      <p style="color:#dc2626;font-weight:600;font-size:0.8rem">v9.2 - March 24, 2026</p>
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem">v10.0 - March 24, 2026</p>
+      <p>- Persistent disk storage for Render (data survives deploys)</p>
+      <p>- Admin reset endpoint (preserves users, cleans posts)</p>
+      <p>- Users backup endpoint (/api/users)</p>
+      <p>- Users restore endpoint (/api/restore-users)</p>
+      <p>- backup.js now saves users.json automatically</p>
+      <p>- Render disk downsized from 10GB to 2GB</p>
+      <p>- Fixed restore.js to only restore posts from posts.json</p>
+      <p>- Cleaned duplicate photos from backup</p>
+
+      <p style="color:#dc2626;font-weight:600;font-size:0.8rem;margin-top:0.8rem">v9.2 - March 24, 2026</p>
       <p>- Auto aspect ratio detection (9:16 / 16:9)</p>
       <p>- Photos keep original dimensions, no forced crop</p>
       <p>- Aiztech logo watermark on all photos</p>
