@@ -151,7 +151,7 @@ select.input option{background:#111;color:#fff}
       <div id="wallQR" style="background:#fff;padding:6px;border-radius:6px"></div>
     </div>
   </div>
-  <div id="wallCarousel" style="position:fixed;inset:0;top:70px;bottom:40px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px"></div>
+  <div id="wallCarousel" style="position:fixed;inset:0;top:70px;bottom:40px;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto;gap:6px;padding:6px;align-content:start"></div>
   <div style="position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0.8rem 2rem;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);display:flex;justify-content:space-between;font-size:0.65rem;font-family:'JetBrains Mono',monospace;color:#444">
     <span>CLOUDLENS v9.9 / <a href="#" onclick="document.getElementById('changelogModal').classList.remove('hidden');return false" style="color:#666;text-decoration:underline">Changelog</a> / Built by Kiro using APEX 2026</span>
     <span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#dc2626;animation:pulse 2s infinite"></span> LIVE</span>
@@ -366,8 +366,7 @@ async function initWall() {
     qrEl.appendChild(qrCanvas);
   }
   pollWall();
-  setInterval(pollWall, 4000);
-  wallInterval = setInterval(nextWallSlide, 5000);
+  setInterval(pollWall, 10000);
 }
 
 async function pollWall() {
@@ -394,15 +393,12 @@ function renderWallSlide() {
     return;
   }
   el.style.display = 'grid';
-  const count = Math.min(4, wallPosts.length);
-  const shuffled = [...wallPosts].sort(() => Math.random() - 0.5);
-  const selected = shuffled.slice(0, count);
+  const selected = wallPosts;
   el.innerHTML = selected.map(p =>
     '<div style="position:relative;overflow:hidden;border-radius:8px;background:#111;display:flex;align-items:center;justify-content:center">' +
       '<img src="' + p.photo + '" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0;transition:opacity 1s ease" onload="this.style.opacity=1">' +
       '<div style="position:absolute;bottom:0;left:0;right:0;padding:0.8rem;background:linear-gradient(transparent,rgba(0,0,0,0.85))">' +
         '<p style="font-size:0.9rem;font-weight:600;color:#fff">' + p.title + '</p>' +
-        '<p style="font-size:0.7rem;color:#dc2626;font-family:JetBrains Mono,monospace;margin-top:0.15rem">@' + p.username + ' / ' + p.role + '</p>' +
         '<p style="font-size:0.6rem;color:#555;margin-top:0.2rem">' + (p.hashtags||[]).slice(0,3).join(' ') + '</p>' +
       '</div>' +
     '</div>'
